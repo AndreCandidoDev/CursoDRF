@@ -134,6 +134,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
+            # usuario deve estar logado para fazer requisições post
             'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     )
 }
