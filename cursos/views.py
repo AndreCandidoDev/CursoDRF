@@ -4,6 +4,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework import mixins
 
 from .models import Curso, Avaliacao
 from .serializers import CursoSerializer, AvaliacaoSerializer
@@ -70,6 +71,20 @@ class CursoViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class AvaliacaoViewSet(viewsets.ModelViewSet):
+# class AvaliacaoViewSet(viewsets.ModelViewSet):
+#     queryset = Avaliacao.objects.all()
+#     serializer_class = AvaliacaoSerializer
+
+
+# usar da seguinte forma para desativar algum metodo da viewset
+class AvaliacaoViewSet(
+    # mixins.ListModelMixin,   # list all ---- GET
+    mixins.CreateModelMixin,   # create --- POST
+    mixins.RetrieveModelMixin,  # retrieve one --- GET
+    mixins.UpdateModelMixin,    # update ----- PUT
+    mixins.DestroyModelMixin,   # delete ---- DELETE
+    viewsets.GenericViewSet
+):
+
     queryset = Avaliacao.objects.all()
     serializer_class = AvaliacaoSerializer
