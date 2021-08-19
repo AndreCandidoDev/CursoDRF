@@ -1,8 +1,16 @@
 from rest_framework import generics
 from rest_framework.generics import get_object_or_404
 
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 from .models import Curso, Avaliacao
 from .serializers import CursoSerializer, AvaliacaoSerializer
+
+"""
+    API versão 1
+"""
 
 
 # ListCreateAPIView ---> GET e POST ---->listar coleção e criar objeto
@@ -44,3 +52,24 @@ class AvaliacaoAPIView(generics.RetrieveUpdateDestroyAPIView):
             return get_object_or_404(self.get_queryset(), curso_id=self.kwargs.get('curso_pk'),
                                      pk=self.kwargs.get('avaliacao_pk'))
         return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('avaliacao_pk'))
+
+
+"""
+    API versão 2
+"""
+
+
+class CursoViewSet(viewsets.ModelViewSet):
+    queryset = Curso.objects.all()
+    serializer_class = CursoSerializer
+
+    @action(detail=True, methods=['get'])  # cria router com avaliacoes na router cursos
+    def avaliacoes(self, request, pk=None):
+        curso = self.get_object()  # chave estrangeira da model Avaliacoes
+        serializer = AvaliacaoSerializer(curso.avaliacoes.all(), many=True)
+        return Response(serializer.data)
+
+
+class AvaliacaoViewSet(viewsets.ModelViewSet):
+    queryset = Avaliacao.objects.all()
+    serializer_class = AvaliacaoSerializer

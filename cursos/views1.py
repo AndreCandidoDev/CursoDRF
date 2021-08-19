@@ -12,7 +12,7 @@ class CursoAPIView(APIView):
     def get(self, request):  # http GET
         # print(request)
         cursos = Curso.objects.all()
-        serializer = CursoSerealizer(cursos, many=True)
+        serializer = CursoSerializer(cursos, many=True)
         return Response(serializer.data)
 
     def post(self, request):
