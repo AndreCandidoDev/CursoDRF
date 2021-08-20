@@ -88,7 +88,7 @@ class CursoViewSet(viewsets.ModelViewSet):
 
 # usar da seguinte forma para desativar algum metodo da viewset
 class AvaliacaoViewSet(
-    # mixins.ListModelMixin,   # list all ---- GET
+    mixins.ListModelMixin,   # list all ---- GET
     mixins.CreateModelMixin,   # create --- POST
     mixins.RetrieveModelMixin,  # retrieve one --- GET
     mixins.UpdateModelMixin,    # update ----- PUT

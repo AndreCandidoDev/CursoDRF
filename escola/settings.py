@@ -8,6 +8,8 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
+
+auth token: f2a9a8356ad243de4666f7269e52805395772e94
 """
 
 import os
@@ -37,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',  # app para autenticação via token
+
     'cursos',
 ]
 
@@ -133,7 +138,8 @@ REST_FRAMEWORK = {
 
     # configurções de autenticação
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
 
     # configuraçoões de permissão
