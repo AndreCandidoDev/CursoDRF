@@ -64,10 +64,20 @@ class CursoViewSet(viewsets.ModelViewSet):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 
+    # paginação padrão não influencia nos métodos sobrescritos
     @action(detail=True, methods=['get'])  # cria router com avaliacoes na router cursos
     def avaliacoes(self, request, pk=None):
-        curso = self.get_object()  # chave estrangeira da model Avaliacoes
-        serializer = AvaliacaoSerializer(curso.avaliacoes.all(), many=True)
+        self.pagination_class.page_size = 2  # define o tamanho de cada página
+        avaliacoes = Avaliacao.objects.filter(curso_id=pk)
+        page = self.paginate_queryset(avaliacoes)
+
+        if page is not None:
+            serializer = AvaliacaoSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        # curso = self.get_object()  # chave estrangeira da model Avaliacoes
+        # serializer = AvaliacaoSerializer(curso.avaliacoes.all(), many=True)
+        serializer = AvaliacaoSerializer(avaliacoes, many=True)
         return Response(serializer.data)
 
 

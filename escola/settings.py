@@ -130,11 +130,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # DRF
 REST_FRAMEWORK = {
+
+    # configurções de autenticação
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
     ),
+
+    # configuraçoões de permissão
     'DEFAULT_PERMISSION_CLASSES': (
             # usuario deve estar logado para fazer requisições post
             'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    )
+    ),
+
+    # configuração de paginação
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2  # 2 dados por pagina
 }
