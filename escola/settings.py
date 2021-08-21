@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 
-auth token: f2a9a8356ad243de4666f7269e52805395772e94
+admin token: f2a9a8356ad243de4666f7269e52805395772e94
+teste token: 56703e2b34ee133537d7107f5421cdeb0699b515
 """
 
 import os
