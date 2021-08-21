@@ -151,5 +151,16 @@ REST_FRAMEWORK = {
 
     # configuração de paginação
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 2  # 2 dados por pagina
+    'PAGE_SIZE': 2,  # 2 dados por pagina
+
+    # configurações de limites de requisições
+    # usa cache para a contagem ---> em produção usar o redis
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {  # second, day, month, year
+        'anon': '5/minutes',  # anonimo
+        'user': '10/minute'  # usuario autenticado
+    }
 }
